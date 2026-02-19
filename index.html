@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>화이트데이 이벤트</title>
+
+<스타일>
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+버튼 { -webkit-appearance: none; appearance: none; font: inherit; }
+
+몸{
+  여백:0;
+  최소 높이: 100vh;
+  표시:플렉스;
+  justify-content:center;
+  항목 정렬: 중앙 정렬;
+  패딩:24px;
+  오버플로우:숨김;
+
+  배경 이미지:
+    선형 기울기(rgba(0,0,0,0.35), rgba(0,0,0,0.35)),
+    url("01.jpg");
+  background-size:cover;
+  배경 위치: 중앙;
+  배경 반복:반복 없음;
+  전환: 배경 이미지 0.5초 완화;
+
+  글꼴 패밀리: system-ui, -apple-system, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+}
+
+.카드{
+  너비:100%;
+  최대 너비:420px;
+  배경:rgba(255,255,255,.95);
+  테두리 반경:20px;
+  패딩:32px;
+  텍스트 정렬: 가운데 정렬;
+  box-shadow:0 15px 40px rgba(0,0,0,.25);
+  위치:상대적;
+  Z-색인:10; /* ✅ 클릭 안 막히게 */
+}
+
+h1{
+  글꼴 크기:20px;
+  줄 높이:1.6;
+  여백:0 0 24px;
+}
+
+.btn-컨테이너{
+  위치:상대적;
+  너비:280px;
+  높이:56px;
+  여백:0 자동;
+  터치 액션: 조작; /* ✅ 모바일 탭 반응 개선 */
+}
+
+.btn{
+  위치:절대값;
+  상단:0;
+  너비:120px;
+  높이:48px;
+  테두리:없음;
+  테두리 반경:30px;
+  글꼴 크기:16px;
+  커서:포인터;
+  사용자 선택:없음;
+  Z-색인:20; /* ✅ 클릭 안 막히게 */
+  포인터 이벤트:자동; /* ✅ 클릭 안 막히게 */
+  전환: 0.15초 완화 변환;
+}
+
+.btn:active{ transform:scale(.98); }
+
+.yes{ left:0; background:#ff4d6d; color:#fff; }
+.no { left:160px; background:#d6d6d6; color:#111; }
+
+.결과{
+  상단 여백:18px;
+  글꼴 크기:20px;
+  글꼴 두께:700;
+  색상:#ff4d6d;
+  표시:없음;
+}
+
+.마음{
+  위치:고정됨;
+  포인터 이벤트:없음;
+  애니메이션: float 2.8초 선형 전진;
+  z-인덱스:5;
+}
+
+@keyframes float{
+  0%{ transform:translateY(0); opacity:1; }
+  100%{ transform:translateY(-300px); opacity:0; }
+}
+</style>
+</head>
+
+본문>
+  <div class="card">
+    <h1>
+      나랑 데이트할래?
+    </h1>
+
+    <div class="btn-container" id="btnArea">
+      <button class="btn yes" id="yesBtn" type="button">아니요</button>
+      <button class="btn no" id="noBtn" type="button"></button>
+    </div>
+
+    <div class="result" id="result">❤️ 내가 그렇게 싫어? ❤️</div>
+  </div>
+
+<script>
+(기능 () {
+  const yesBtn = document.getElementById("yesBtn") || document.querySelector(".yes");
+  const noBtn = document.getElementById("noBtn") || document.querySelector(".no");
+  const btnArea = document.getElementById("btnArea") || document.querySelector(".btn-container");
+  const result = document.getElementById("result");
+
+  만약 Btn이 아니거나 BtnArea가 아니면 {
+    // 요소가 없으면(복붙) 종료
+    반품;
+  }
+
+  yesBtn.addEventListener("click", () => {
+    문서.본문.스타일.배경이미지 =
+      'linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)), url("02.jpg")';
+    결과가 "블록"이면 result.style.display를 "블록"으로 설정합니다.
+    하트를 생성합니다();
+  });
+
+  함수 createHearts(){
+    for(let i=0;i<20;i++){
+      const h=document.createElement("div");
+      h.className="heart";
+      h.textContent="❤️";
+      h.style.left = (Math.random()*window.innerWidth) + "px";
+      h.style.top = window.innerHeight + "px";
+      document.body.appendChild(h);
+      setTimeout(()=>h.remove(), 2800);
+    }
+  }
+
+  function moveNo(){
+    const w = noBtn.offsetWidth || 120;
+    const h = noBtn.offsetHeight || 48;
+    const maxX = btnArea.clientWidth - w;
+    const maxY = btnArea.clientHeight - h;
+
+    const x = Math.max(0, Math.random()*maxX);
+    const y = Math.max(0, Math.random()*maxY);
+
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+  }
+
+  // PC: 올리면
+  noBtn.addEventListener("mouseenter", moveNo);
+
+  // 모바일: 순간 에너지
+  noBtn.addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    이동하지 않음();
+  }, { passive:false });
+
+  //클릭도 방지
+  noBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    이동하지 않음();
+  });
+
+})();
+</script>
+</body>
+</html>
